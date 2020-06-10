@@ -2,10 +2,10 @@
 //require_once('api.php');
 require_once('rb-mysql.php');
 class todoAPI {
-	public  $api_name = 'todo';
+	public  $apiName = 'todo';
 	function __construct(){
 		header('Content-Type: application/json');
-	  header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+	  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 	  header('Access-Control-Allow-Headers: Content-Type');
 		header('Access-Control-Allow-Credentials: true');
 		$this->requestUri = explode('/', $_SERVER['REQUEST_URI']);
@@ -50,7 +50,7 @@ class todoAPI {
 			$method = $this->method;
 			switch ($method) {
 					case 'GET':
-							return 'indexAction';
+							return 'get_action';
 							break;
 					case 'POST':
 							return 'createAction';
@@ -68,7 +68,7 @@ class todoAPI {
 	function __destruct(){
 		R::close();
 	}
-	public  function indexAction(){
+	public  function get_action(){
 		$serverCode = 200;
 		if (empty($this->requestParams->ids)){
 			$result = R::getAll('select * from todos');
@@ -95,6 +95,8 @@ class todoAPI {
 			return ($status[$code])?$status[$code]:$status[500];
 	}
 	public function createAction (){
+		$serverCode = 200;
+
 		$newTodo = R::dispense('todos');
 		$newTodo->title = $this->payload['title'];
 		$newTodo->body = $this->payload['body'];
@@ -102,9 +104,15 @@ class todoAPI {
 		$newTodo->state = $this->payload['state'];
 
 		R::store($newTodo);
-		return json_encode(array("id"=>$newTodo->id));
+
+		$result = array(
+			"success" => true,
+			"id" => $newTodo->id
+		);
+		return $this->response($result, $serverCode);
 	}
 	public function updateAction (){
+		$serverCode = 200;
 		$updateTodo = R::load('todos', $this->payload['id']);
 		if ($updateTodo){
 			foreach ($this->payload['newTodo'] as $key => $value){
@@ -112,11 +120,20 @@ class todoAPI {
 			}
 			R::store($updateTodo);
 		}
+		$result = array(
+			"success" => true
+		);
+		return $this->response($result, $serverCode);
 	}
 	public function deleteAction (){
-		if (!empty($this->requestParams['ids'])){
-			$toDelete = R::loadAll('todos', $this->requestParams['ids']);
-			R::trashAll($toDelete);
+		$serverCode = 200;
+		if (!empty($this->requestParams['id'])){
+			$toDelete = R::load('todos', $this->requestParams['id']);
+			R::trash($toDelete);
 		}
+		$result = array(
+			"success" => true
+		);
+		return $this->response($result, $serverCode);
 	}
 }

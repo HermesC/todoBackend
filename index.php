@@ -1,6 +1,6 @@
 <?php
 	define('__ROOT__', dirname(dirname(__FILE__)));
-	require_once(__ROOT__.'\todo\api\todoAPI.php');
+	require_once('api\todoAPI.php');
 	try {
     $api = new todoAPI();
     echo $api->run();
@@ -9,4 +9,3 @@
 }
 	exit;
 ?>
-Something is wrong with the XAMPP installation :-(
