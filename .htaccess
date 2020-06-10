@@ -1,0 +1,9 @@
+RewriteEngine On
+#RewriteCond %{REQUEST_URI} !page/page1.php$
+RewriteRule .* index.php [L]
+#<VirtualHost *:80>
+#   Header set Access-Control-Allow-Origin "*"
+#</VirtualHost>
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
