@@ -102,12 +102,14 @@ class todoAPI {
 		$newTodo->body = $this->payload['body'];
 		$newTodo->deadline = $this->payload['deadline'];
 		$newTodo->state = $this->payload['state'];
+		$newTodo->serial_id = R::getCell('select max(serial_id) FROM todos') + 1;
 
 		R::store($newTodo);
 
 		$result = array(
 			"success" => true,
-			"id" => $newTodo->id
+			"id" => $newTodo->id,
+			"idSerial" => $newTodo->idSerial
 		);
 		return $this->response($result, $serverCode);
 	}
