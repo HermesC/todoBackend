@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 10, 2020 at 04:00 PM
+-- Generation Time: Jun 11, 2020 at 06:41 PM
 -- Server version: 10.3.13-MariaDB-log
 -- PHP Version: 7.1.32
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `todos` (
   `id` int(11) NOT NULL,
+  `serial_id` int(11) DEFAULT NULL,
   `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deadline` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -40,8 +41,8 @@ CREATE TABLE `todos` (
 -- Dumping data for table `todos`
 --
 
-INSERT INTO `todos` (`id`, `title`, `body`, `deadline`, `state`) VALUES
-(1, 'test', 'test2', '2020.06.15', 'current');
+INSERT INTO `todos` (`id`, `serial_id`, `title`, `body`, `deadline`, `state`) VALUES
+(20, 1, 'Test', 'Hello there', '2020 20202 2020', 'current');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +62,7 @@ ALTER TABLE `todos`
 -- AUTO_INCREMENT for table `todos`
 --
 ALTER TABLE `todos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

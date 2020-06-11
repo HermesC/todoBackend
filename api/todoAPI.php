@@ -102,14 +102,23 @@ class todoAPI {
 		$newTodo->body = $this->payload['body'];
 		$newTodo->deadline = $this->payload['deadline'];
 		$newTodo->state = $this->payload['state'];
-		$newTodo->serial_id = R::getCell('select max(serial_id) FROM todos') + 1;
+		$new_serial_id = R::getCell('select max(serial_id) FROM todos');
+		if ($new_serial_id == null)
+			$newTodo->serial_id = 1;
+		else
+			$newTodo->serial_id = $new_serial_id + 1;
 
 		R::store($newTodo);
 
 		$result = array(
 			"success" => true,
-			"id" => $newTodo->id,
-			"serial_id" => $newTodo->serial_id
+			"newTask" => array(
+				"id" => $newTodo->id,
+				"serial_id" => $newTodo->serial_id,
+				"title" => $newTodo->title,
+				"deadline" => $newTodo->deadline,
+				"state" => $newTodo->state
+			)
 		);
 		return $this->response($result, $serverCode);
 	}
