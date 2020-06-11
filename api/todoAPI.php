@@ -114,6 +114,7 @@ class todoAPI {
 			"success" => true,
 			"newTask" => array(
 				"id" => $newTodo->id,
+				"body"=> $newTodo->body,
 				"serial_id" => $newTodo->serial_id,
 				"title" => $newTodo->title,
 				"deadline" => $newTodo->deadline,
@@ -126,7 +127,7 @@ class todoAPI {
 		$serverCode = 200;
 		$updateTodo = R::load('todos', $this->payload['id']);
 		if ($updateTodo){
-			foreach ($this->payload['newTodo'] as $key => $value){
+			foreach ($this->payload['changes'] as $key => $value){
 				$updateTodo->{$key} = $value;
 			}
 			R::store($updateTodo);
@@ -140,7 +141,7 @@ class todoAPI {
 		$serverCode = 200;
 		if (!empty($this->requestParams['id'])){
 			$toDelete = R::load('todos', $this->requestParams['id']);
-			// $all_data = R::getAll('select * from todos');
+			// $all_data = R::exec('select * from todos');
 			// foreach ($all_data as $row){
 			// 	if ($row->serial_id > $toDelete->serial_id) $row->serial_id = $row->serial_id + 1;
 			// 	else if ($row->serial_id < $toDelete->serial_id) $row->serial_id = $row->serial_id -1;
