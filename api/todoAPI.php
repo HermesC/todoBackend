@@ -109,7 +109,7 @@ class todoAPI {
 		$result = array(
 			"success" => true,
 			"id" => $newTodo->id,
-			"idSerial" => $newTodo->idSerial
+			"serial_id" => $newTodo->serial_id
 		);
 		return $this->response($result, $serverCode);
 	}
@@ -131,6 +131,12 @@ class todoAPI {
 		$serverCode = 200;
 		if (!empty($this->requestParams['id'])){
 			$toDelete = R::load('todos', $this->requestParams['id']);
+			// $all_data = R::getAll('select * from todos');
+			// foreach ($all_data as $row){
+			// 	if ($row->serial_id > $toDelete->serial_id) $row->serial_id = $row->serial_id + 1;
+			// 	else if ($row->serial_id < $toDelete->serial_id) $row->serial_id = $row->serial_id -1;
+			// }
+			// R::store($all_data);
 			R::trash($toDelete);
 		}
 		$result = array(
