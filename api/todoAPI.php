@@ -56,7 +56,12 @@ class todoAPI {
 							return 'createAction';
 							break;
 					case 'PUT':
+					if (stripos($_SERVER['REQUEST_URI'], 'all') === false){
 							return 'updateAction';
+					}
+					else {
+						  return 'updateAllAction';
+					}
 							break;
 					case 'DELETE':
 							return 'deleteAction';
@@ -133,9 +138,31 @@ class todoAPI {
 			R::store($updateTodo);
 		}
 		$result = array(
+			"success" => false,
+			'action' =>'updateAction'
+		);
+		return $this->response($result, $serverCode);
+	}
+	public function updateAllAction (){
+		$serverCode = 200;
+		$allTasks = R::getAll('select * from todos');
+		$tasks = R::convertToBeans('todos', $allTasks);
+
+		if ($tasks){
+				foreach($tasks as $task){
+					foreach ($this->payload['changes'] as $prop => $change) {
+						$task->{$prop} = $change;
+					}
+					R::store($task);
+				}
+		} else {
+			$serverCode = 500;
+		}
+		$result = array(
 			"success" => true
 		);
 		return $this->response($result, $serverCode);
+
 	}
 	public function deleteAction (){
 		$serverCode = 200;

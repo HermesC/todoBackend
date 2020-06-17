@@ -557,7 +557,7 @@ interface Driver
 	 * results.
 	 *
 	 * This method is for more fine-grained control. Normally
-	 * you should use the facade to start the query debugger for
+	 * you should use the facade to start the query  for
 	 * you. The facade will manage the object wirings necessary
 	 * to use the debugging functionality.
 	 *
@@ -570,7 +570,7 @@ interface Driver
 	 * </code>
 	 *
 	 * The example above illustrates how to use the RedBeanPHP
-	 * query debugger through the facade.
+	 * query  through the facade.
 	 *
 	 * @param boolean $trueFalse turn on/off
 	 * @param Logger  $logger    logger instance
@@ -1210,7 +1210,7 @@ class RPDO implements Driver
 	 * Sets the logger instance you wish to use.
 	 *
 	 * This method is for more fine-grained control. Normally
-	 * you should use the facade to start the query debugger for
+	 * you should use the facade to start the query  for
 	 * you. The facade will manage the object wirings necessary
 	 * to use the debugging functionality.
 	 *
@@ -1223,7 +1223,7 @@ class RPDO implements Driver
 	 * </code>
 	 *
 	 * The example above illustrates how to use the RedBeanPHP
-	 * query debugger through the facade.
+	 * query  through the facade.
 	 *
 	 * @param Logger $logger the logger instance to be used for logging
 	 *
@@ -12066,13 +12066,13 @@ class Facade
 	}
 
 	/**
-	 * Turns on the fancy debugger.
-	 * In 'fancy' mode the debugger will output queries with bound
+	 * Turns on the fancy .
+	 * In 'fancy' mode the  will output queries with bound
 	 * parameters inside the SQL itself. This method has been added to
-	 * offer a convenient way to activate the fancy debugger system
+	 * offer a convenient way to activate the fancy  system
 	 * in one call.
 	 *
-	 * @param boolean $toggle TRUE to activate debugger and select 'fancy' mode
+	 * @param boolean $toggle TRUE to activate  and select 'fancy' mode
 	 *
 	 * @return void
 	 */
